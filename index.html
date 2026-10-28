@@ -1,30 +1,63 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#050019">
-  <title>Grove</title>
-  <link rel="stylesheet" href="/css/styles.css">
-</head>
-<body>
-  <main class="grove-scene">
-    <div class="atmosphere" aria-hidden="true"></div>
-    <div class="logo-orbit" aria-hidden="true"></div>
-    <div class="orbit-glow" aria-hidden="true"></div>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b0f0d">
+  <title>Grove</title>  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-    <div class="logo-stage">
-      <img
-        class="grove-logo"
-        src="/file_0000000051a881f69529cfe7da76c32c.png"
-        alt="Grove logo"
-        fetchpriority="high"
-      >
-    </div>
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+    }
 
-    <canvas class="horizon-particles" aria-hidden="true"></canvas>
+    body {
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0b0f0d;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .logo-box {
+      width: 140px;
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      background: #0b0f0d;
+      border: 1px solid #232b27;
+      border-radius: 14px;
+    }
+
+    .grove-logo {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    @media (max-width: 480px) {
+      .logo-box {
+        width: 120px;
+        height: 120px;
+      }
+    }
+  </style></head><body>
+  <main class="logo-box">
+    <img
+      class="grove-logo"
+      src="grove-logo.png"
+      alt="Grove"
+    >
   </main>
-
-  <script src="/js/particles.js" defer></script>
 </body>
 </html>
