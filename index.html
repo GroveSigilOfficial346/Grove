@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#050019">
   <title>Grove</title>
+
   <style>
     * { box-sizing: border-box; }
 
@@ -19,102 +19,190 @@
       min-height: 100dvh;
       display: grid;
       place-items: center;
-      padding: 24px;
+      overflow: hidden;
       background: #050019;
+      color: #f7f5ff;
       font-family: Arial, Helvetica, sans-serif;
     }
 
-    .logo-box {
-      width: min(100%, 380px);
-      aspect-ratio: 1 / 1;
+    .scene {
+      position: relative;
       display: grid;
       place-items: center;
+      width: 100%;
+      min-height: 100vh;
+      min-height: 100dvh;
+      isolation: isolate;
       overflow: hidden;
-      border: 1px solid #39215e;
-      border-radius: 18px;
       background:
-        radial-gradient(ellipse at 25% 48%, #35105b 0%, transparent 48%),
-        radial-gradient(ellipse at 78% 45%, #101d66 0%, transparent 48%),
-        #08051d;
-      box-shadow: 0 0 42px #851eff24;
+        radial-gradient(ellipse at 15% 48%, #57118a66, transparent 43%),
+        radial-gradient(ellipse at 88% 50%, #123ca866, transparent 43%),
+        #050019;
+    }
+
+    .scene::before,
+    .scene::after {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      width: 70vw;
+      height: 38vh;
+      border-radius: 50%;
+      filter: blur(55px);
+      opacity: .35;
+      animation: drift 9s ease-in-out infinite alternate;
+    }
+
+    .scene::before {
+      left: -25vw;
+      top: 20%;
+      background: #851eff;
+    }
+
+    .scene::after {
+      right: -25vw;
+      bottom: 15%;
+      background: #05c9f4;
+      animation-delay: -4s;
+    }
+
+    .brand {
+      width: min(88vw, 410px);
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      border: 1px solid #9d65ff45;
+      border-radius: 24px;
+      background: linear-gradient(145deg, #100923bb, #07051abb);
+      box-shadow:
+        0 0 50px #851eff20,
+        inset 0 0 45px #353bff0b;
+      backdrop-filter: blur(10px);
+      animation: appear 1.2s ease both;
     }
 
     svg {
+      display: block;
       width: 100%;
       height: 100%;
-      display: block;
+    }
+
+    .orbit {
+      transform-origin: 190px 143px;
+      animation: rotate 28s linear infinite;
+    }
+
+    .leaf {
+      stroke-dasharray: 220;
+      stroke-dashoffset: 0;
+      animation: shimmer 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes appear {
+      from { opacity: 0; transform: translateY(12px) scale(.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes rotate {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes shimmer {
+      from { opacity: .65; }
+      to { opacity: 1; }
+    }
+
+    @keyframes drift {
+      from { transform: translateY(-12px) scale(.95); }
+      to { transform: translateY(18px) scale(1.08); }
     }
 
     @media (max-width: 480px) {
-      .logo-box { width: min(100%, 320px); }
+      .brand { width: min(86vw, 340px); border-radius: 18px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation: none !important;
+      }
     }
   </style>
 </head>
+
 <body>
-  <main class="logo-box" aria-label="Grove">
-    <svg viewBox="0 0 380 380"
-         xmlns="http://www.w3.org/2000/svg"
-         role="img" aria-labelledby="title">
-      <title id="title">Grove — emblem and wordmark</title>
-      <defs>
-        <linearGradient id="emblem" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="#eb36ed"/>
-          <stop offset="48%" stop-color="#851eff"/>
-          <stop offset="100%" stop-color="#05c9f4"/>
-        </linearGradient>
-        <linearGradient id="word" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stop-color="#c17aff"/>
-          <stop offset="52%" stop-color="#f7f5ff"/>
-          <stop offset="100%" stop-color="#63eaff"/>
-        </linearGradient>
-        <radialGradient id="halo">
-          <stop offset="0%" stop-color="#851eff" stop-opacity=".3"/>
-          <stop offset="100%" stop-color="#050019" stop-opacity="0"/>
-        </radialGradient>
-        <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
-          <feGaussianBlur stdDeviation="5" result="blur"/>
-          <feMerge>
-            <feMergeNode in="blur"/>
-            <feMergeNode in="SourceGraphic"/>
-          </feMerge>
-        </filter>
-      </defs>
+  <main class="scene">
+    <div class="brand" role="img" aria-label="Grove logo">
+      <svg viewBox="0 0 380 380" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="neon" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#eb36ed"/>
+            <stop offset="48%" stop-color="#851eff"/>
+            <stop offset="100%" stop-color="#05c9f4"/>
+          </linearGradient>
 
-      <ellipse cx="190" cy="145" rx="130" ry="115" fill="url(#halo)"/>
+          <linearGradient id="word" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#c17aff"/>
+            <stop offset="50%" stop-color="#f7f5ff"/>
+            <stop offset="100%" stop-color="#63eaff"/>
+          </linearGradient>
 
-      <circle cx="190" cy="139" r="77"
-              fill="none" stroke="url(#emblem)"
-              stroke-width="1.5" opacity=".65"/>
+          <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+            <feGaussianBlur stdDeviation="4" result="blur"/>
+            <feMerge>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
 
-      <circle cx="190" cy="139" r="64"
-              fill="none" stroke="#7b64ff"
-              stroke-width=".8" opacity=".45"/>
+          <radialGradient id="core">
+            <stop offset="0%" stop-color="#851eff" stop-opacity=".25"/>
+            <stop offset="100%" stop-color="#050019" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
 
-      <g fill="none" stroke="url(#emblem)"
-         stroke-width="4" stroke-linecap="round"
-         stroke-linejoin="round" filter="url(#glow)">
-        <path d="M190 183 V105"/>
-        <path d="M190 151 C157 149 144 127 145 105 C169 107 187 124 190 151Z"/>
-        <path d="M190 132 C211 130 231 111 232 89 C208 92 193 108 190 132Z"/>
-        <path d="M190 170 C215 168 234 150 235 132 C212 134 196 148 190 170Z"/>
-        <path d="M190 183 C169 180 153 166 151 149"/>
-        <path d="M163 190 H217"/>
-      </g>
+        <ellipse cx="190" cy="143" rx="130" ry="118" fill="url(#core)"/>
 
-      <path d="M25 222 C75 193 107 216 142 226 S214 237 258 215 S328 197 355 219"
-            fill="none" stroke="#a855f7" stroke-width="1.5" opacity=".65"/>
-      <path d="M25 230 C78 209 111 232 151 239 S227 244 267 226 S327 215 355 230"
-            fill="none" stroke="#05c9f4" stroke-width="1" opacity=".55"/>
+        <g class="orbit" fill="none" stroke="url(#neon)">
+          <ellipse cx="190" cy="143" rx="78" ry="78"
+                   stroke-width="1.3" opacity=".7"/>
+          <ellipse cx="190" cy="143" rx="96" ry="60"
+                   stroke-width=".8" opacity=".45"
+                   transform="rotate(-35 190 143)"/>
+        </g>
 
-      <text x="190" y="285" text-anchor="middle"
-            font-family="Arial, Helvetica, sans-serif"
-            font-size="57" font-weight="300"
-            letter-spacing="2" fill="url(#word)">grove</text>
+        <g fill="none" stroke="url(#neon)" stroke-width="4"
+           stroke-linecap="round" stroke-linejoin="round"
+           filter="url(#glow)">
+          <path d="M190 190 V94"/>
+          <path class="leaf"
+                d="M190 153 C156 150 139 127 143 103
+                   C169 108 187 126 190 153Z"/>
+          <path class="leaf"
+                d="M190 133 C214 130 235 108 235 86
+                   C210 91 194 109 190 133Z"/>
+          <path class="leaf"
+                d="M190 174 C216 170 235 152 237 133
+                   C213 136 196 151 190 174Z"/>
+          <path d="M190 188 C168 182 154 166 151 150"/>
+          <path d="M163 196 H217"/>
+        </g>
 
-      <path d="M115 305 H265"
-            stroke="url(#emblem)" stroke-width="1.5" opacity=".8"/>
-      <circle cx="190" cy="305" r="3" fill="#f7f5ff"/>
-    </svg>
+        <path d="M24 226 C76 198 111 224 150 232
+                 S227 242 269 220 S328 204 356 225"
+              fill="none" stroke="#a855f7" stroke-width="1.5" opacity=".7"/>
+        <path d="M25 235 C76 215 114 237 153 243
+                 S227 249 269 231 S328 219 355 235"
+              fill="none" stroke="#05c9f4" stroke-width="1" opacity=".6"/>
+
+        <text x="190" y="292" text-anchor="middle"
+              font-family="Arial, Helvetica, sans-serif"
+              font-size="58" font-weight="300"
+              letter-spacing="2" fill="url(#word)">grove</text>
+
+        <path d="M119 311 H261" stroke="url(#neon)" stroke-width="1.5"/>
+        <circle cx="190" cy="311" r="3" fill="#f7f5ff"/>
+      </svg>
+    </div>
   </main>
 </body>
 </html>
