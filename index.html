@@ -2,136 +2,263 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Grove Social</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grove — Social</title>
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#09060d;color:#eee4f5;font:15px Arial,sans-serif}
-header{padding:18px 7%;border-bottom:1px solid #38203f;background:#100b16;display:flex;justify-content:space-between;align-items:center}
-.logo{font:26px Georgia,serif;letter-spacing:4px;color:#c49aff}
-small{color:#a68eaf}
-main{max-width:760px;margin:45px auto;padding:0 18px}
-.hero{padding:35px 25px;background:linear-gradient(135deg,#291331,#100b17 65%,#351222);border:1px solid #563361;text-align:center}
-.sigil{font:48px Georgia;color:#b77cf0}
-h1{font:36px Georgia;font-weight:normal;margin:8px 0}
-p{color:#bbaac5;line-height:1.7}
-button{background:#321c40;border:1px solid #8556a3;color:#f1e3ff;padding:10px 16px;cursor:pointer}
-button:hover{background:#512660}
-nav{display:flex;gap:8px;margin:20px 0;flex-wrap:wrap}
-nav button.active{background:#642a70}
-.panel{padding:18px;border:1px solid #382340;background:#120d18;margin:12px 0}
-textarea,input{width:100%;padding:12px;background:#0b0810;border:1px solid #44304e;color:white;margin:8px 0}
-textarea{min-height:90px;resize:vertical}
-.post{padding:15px 0;border-bottom:1px solid #382340;overflow-wrap:anywhere}
-.post strong{color:#c49aff}
-.actions{display:flex;gap:8px;margin-top:10px}
-.view{display:none}.view.active{display:block}
-footer{text-align:center;color:#766580;padding:30px;font-size:11px}
+:root {
+  --bg: #050019;
+  --panel: #100a29;
+  --purple: #851eff;
+  --magenta: #eb36ed;
+  --blue: #353bff;
+  --cyan: #05c9f4;
+  --white: #f7f5ff;
+  --muted: #a8a2c5;
+  --border: rgba(168,140,255,.18);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  color: var(--white);
+  background: var(--bg);
+  font-family: Arial, sans-serif;
+}
+header {
+  position: relative;
+  overflow: hidden;
+  min-height: 280px;
+  padding: 24px 7%;
+  border-bottom: 1px solid var(--border);
+  background:
+    radial-gradient(ellipse at 50% 0%, #5520a855, transparent 60%),
+    linear-gradient(135deg, #080020, #100529 60%, #050019);
+}
+header::before {
+  content: "✳";
+  position: absolute;
+  right: 8%;
+  top: -100px;
+  font-size: 340px;
+  color: #a855f718;
+  text-shadow: 0 0 70px #851eff33;
+  pointer-events: none;
+}
+.topbar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 25px;
+  font-weight: bold;
+  letter-spacing: 4px;
+}
+.logo-mark {
+  color: var(--cyan);
+  font-size: 32px;
+  text-shadow: 0 0 18px var(--purple);
+}
+nav { display: flex; gap: 18px; }
+nav a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 14px;
+}
+nav a:hover { color: var(--cyan); }
+.hero {
+  position: relative;
+  max-width: 680px;
+  padding: 48px 0 20px;
+}
+.hero small {
+  color: var(--cyan);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+h1 {
+  margin: 12px 0;
+  font-size: clamp(38px, 7vw, 66px);
+  letter-spacing: -2px;
+}
+h1 span {
+  color: var(--magenta);
+  text-shadow: 0 0 30px #eb36ed44;
+}
+.hero p { color: var(--muted); line-height: 1.7; }
+main {
+  width: min(900px, 92%);
+  margin: 28px auto;
+}
+.panel {
+  margin-bottom: 18px;
+  padding: 20px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 15px;
+}
+h2 { margin-top: 0; font-size: 18px; }
+input, textarea {
+  width: 100%;
+  padding: 13px;
+  margin: 6px 0 12px;
+  color: var(--white);
+  background: #08051b;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  font: inherit;
+}
+textarea { resize: vertical; min-height: 85px; }
+button {
+  padding: 11px 17px;
+  color: white;
+  background: linear-gradient(110deg, var(--purple), var(--blue));
+  border: 0;
+  border-radius: 9px;
+  cursor: pointer;
+  font-weight: bold;
+}
+button:hover { filter: brightness(1.2); }
+.post {
+  padding: 17px 0;
+  border-top: 1px solid var(--border);
+}
+.post:first-of-type { border-top: 0; }
+.post strong { color: var(--cyan); }
+.post p { line-height: 1.6; overflow-wrap: anywhere; }
+.muted { color: var(--muted); font-size: 13px; }
+footer {
+  padding: 25px;
+  text-align: center;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+}
+@media (max-width: 560px) {
+  .topbar { align-items: flex-start; flex-direction: column; }
+  nav { flex-wrap: wrap; gap: 14px; }
+  header { padding: 20px 6%; }
+  .hero { padding-top: 35px; }
+}
 </style>
 </head>
 <body>
+
 <header>
-  <div class="logo">⛧ GROVE</div>
-  <small>PSYCHIC HEADQUARTERS</small>
-</header>
-<main>
+  <div class="topbar">
+    <div class="logo"><span class="logo-mark">✳</span> GROVE</div>
+    <nav>
+      <a href="#feed">Feed</a>
+      <a href="#discover">Discover</a>
+      <a href="#profile">Profile</a>
+    </nav>
+  </div>
+
   <section class="hero">
-    <div class="sigil">𖤐</div>
-    <h1>Enter the Grove.</h1>
-    <p>A social network for creators, independent minds, and those who walk beyond the ordinary.</p>
-    <button onclick="show('feed')">Enter Headquarters ↗</button>
+    <small>Your world. Your people.</small>
+    <h1>Find your place in <span>Grove.</span></h1>
+    <p>A place to connect, share your world, discover creators, and grow together.</p>
+  </section>
+</header>
+
+<main>
+  <section class="panel" id="profile">
+    <h2>Your Profile</h2>
+    <input id="username" placeholder="Your display name">
+    <textarea id="bio" placeholder="A little about you..."></textarea>
+    <button onclick="saveProfile()">Save Profile</button>
+    <p class="muted" id="profileStatus"></p>
   </section>
 
-  <nav>
-    <button class="active" data-view="feed" onclick="show('feed',this)">The Feed</button>
-    <button data-view="discover" onclick="show('discover',this)">Discover</button>
-    <button data-view="profile" onclick="show('profile',this)">My Profile</button>
-  </nav>
-
-  <section id="feed" class="view active">
-    <div class="panel">
-      <h3>Transmit a message</h3>
-      <textarea id="message" maxlength="2000" placeholder="What do you want the Grove to know?"></textarea>
-      <button onclick="publish()">Publish Post</button>
-    </div>
-    <div class="panel">
-      <h3>Recent transmissions</h3>
-      <div id="posts"></div>
-    </div>
+  <section class="panel" id="feed">
+    <h2>Share something</h2>
+    <textarea id="postText" placeholder="What's happening in your world?"></textarea>
+    <button onclick="createPost()">Publish Post</button>
   </section>
 
-  <section id="discover" class="view">
-    <div class="panel">
-      <div class="sigil">⌕</div>
-      <h2>Discover the Unknown</h2>
-      <p>Find creators, exchange ideas, and build your place in Grove.</p>
-      <input id="search" placeholder="Search posts..." oninput="render()">
-      <div id="discoverPosts"></div>
-    </div>
+  <section class="panel">
+    <h2>Community Feed</h2>
+    <div id="posts"></div>
   </section>
 
-  <section id="profile" class="view">
-    <div class="panel">
-      <div class="sigil">♙</div>
-      <h2>My Profile</h2>
-      <input id="name" placeholder="Display name">
-      <textarea id="bio" placeholder="Your biography"></textarea>
-      <button onclick="saveProfile()">Save Profile</button>
-      <p id="profileInfo"></p>
-    </div>
+  <section class="panel" id="discover">
+    <h2>Discover Grove</h2>
+    <p class="muted">Find new people and explore the community. More discovery features coming soon.</p>
   </section>
 </main>
-<footer>GROVE SOCIAL · THE ARCHIVE IS OPEN</footer>
+
+<footer>GROVE · A WORLD CONNECTED</footer>
 
 <script>
-const $=id=>document.getElementById(id);
-let profile=JSON.parse(localStorage.getItem('groveProfile')||'{"name":"Grove Member","bio":"Finding my place in Grove."}');
-let posts=JSON.parse(localStorage.getItem('grovePosts')||'[]');
+const get = key => localStorage.getItem("grove_" + key) || "";
 
-function show(id,button){
-  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
-  $(id).classList.add('active');
-  document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
-  if(button)button.classList.add('active');
-  render();
+document.getElementById("username").value = get("username");
+document.getElementById("bio").value = get("bio");
+
+function saveProfile() {
+  localStorage.setItem("grove_username",
+    document.getElementById("username").value.trim() || "Grove Member");
+  localStorage.setItem("grove_bio",
+    document.getElementById("bio").value.trim());
+  document.getElementById("profileStatus").textContent = "Profile saved on this device.";
+  renderPosts();
 }
-function publish(){
-  const text=$('message').value.trim();
-  if(!text)return alert('Write a message first.');
-  posts.unshift({text,author:profile.name,date:new Date().toLocaleString(),likes:0});
-  localStorage.setItem('grovePosts',JSON.stringify(posts));
-  $('message').value='';
-  render();
+
+function escapeHTML(text) {
+  return String(text).replace(/[&<>"']/g, char => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;",
+    '"': "&quot;", "'": "&#39;"
+  })[char]);
 }
-function like(i){
-  posts[i].likes++;
-  localStorage.setItem('grovePosts',JSON.stringify(posts));
-  render();
+
+function createPost() {
+  const field = document.getElementById("postText");
+  const text = field.value.trim();
+  if (!text) return;
+
+  const posts = JSON.parse(get("posts") || "[]");
+  posts.unshift({
+    name: get("username") || "Grove Member",
+    text,
+    likes: 0
+  });
+
+  localStorage.setItem("grove_posts", JSON.stringify(posts));
+  field.value = "";
+  renderPosts();
 }
-function render(){
-  const html=posts.map((p,i)=>({p,i})).filter(({p})=>p.text.toLowerCase().includes(($('search')?.value||'').toLowerCase())).map(({p,i})=>`
-    <div class="post">
-      <strong>${esc(p.author)}</strong> <small>· ${esc(p.date)}</small>
-      <p>${esc(p.text)}</p>
-      <button onclick="like(${i})">♡ ${p.likes||0} Likes</button>
-    </div>`).join('')||'<p>No transmissions yet. Be the first.</p>';
-  $('posts').innerHTML=html;
-  $('discoverPosts').innerHTML=html;
-  $('profileInfo').textContent=profile.name+' — '+profile.bio;
+
+function likePost(index) {
+  const posts = JSON.parse(get("posts") || "[]");
+  posts[index].likes++;
+  localStorage.setItem("grove_posts", JSON.stringify(posts));
+  renderPosts();
 }
-function saveProfile(){
-  profile.name=$('name').value.trim()||'Grove Member';
-  profile.bio=$('bio').value.trim();
-  localStorage.setItem('groveProfile',JSON.stringify(profile));
-  render();
-  alert('Profile saved on this device.');
+
+function renderPosts() {
+  const posts = JSON.parse(get("posts") || "[]");
+  const container = document.getElementById("posts");
+
+  if (!posts.length) {
+    container.innerHTML = '<p class="muted">Your community feed starts here.</p>';
+    return;
+  }
+
+  container.innerHTML = posts.map((post, index) => `
+    <article class="post">
+      <strong>${escapeHTML(post.name)}</strong>
+      <p>${escapeHTML(post.text).replace(/\n/g, "<br>")}</p>
+      <button onclick="likePost(${index})">♡ ${post.likes || 0}</button>
+    </article>
+  `).join("");
 }
-function esc(s){
-  return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-}
-$('name').value=profile.name;
-$('bio').value=profile.bio;
-render();
+
+renderPosts();
 </script>
+
 </body>
 </html>
