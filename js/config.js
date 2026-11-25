@@ -1,6 +1,9 @@
 // Grove MAIN connection settings.
 export const GROVE_ENVIRONMENT = "MAIN";
 
+export const GROVE_OWNER_ID =
+  "a48b74e4-25a9-47b0-89f4-2edba76ce5dc";
+
 export const SUPABASE_URL =
   "https://tjbqkmgavwqcdiovxgoj.supabase.co";
 
